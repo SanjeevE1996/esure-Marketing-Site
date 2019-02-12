@@ -20,10 +20,17 @@ To add users: Organization Settings > Users(search user) > invite
  
  
  contentModel - Page on a website: here you set the structure of the fields and there type, i.e text media etc
+ 
+ 
  contentType - Adding content to the model, will add content based on structure set from the contentModel.
+ 
+ 
  NOTE: Creating content is not enough, make sure to publish your changes in order for the api call to get them.
  
+ 
+ 
  contentful API docs: https://www.contentful.com/developers/docs/references/content-delivery-api/
+ 
  
  Contains range of diffrent api calls that can be made aswell as explaining how the structure of contentful can be done.
                        

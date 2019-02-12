@@ -32,7 +32,7 @@ To add users: Organization Settings > Users(search user) > invite
  contentful API docs: https://www.contentful.com/developers/docs/references/content-delivery-api/
  
  
- Contains range of diffrent api calls that can be made aswell as explaining how the structure of contentful can be done.
+ Contains range of diffrent api calls that can be made aswell as explaining how a space and all it content can be structured.
                        
                       
     

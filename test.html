@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Quick Contentful & Handlesbars setup</title>
+    <meta
+      name="description"
+      content="A quick implementation for displaying data from Contentful using Handlebars.js - not intended for production."
+    />
+  </head>
+  <body>
+    <main>
+      <div id="demo"></div>
+    </main>
+
+    <script id="templateTitles" type="text/template">
+      <ul>
+        {{#items}}
+          <li>{{fields.sectionTitle}}</li>
+          <p>{{fields.sectionContent}}</p>
+        {{/items}}
+      </ul>
+    </script>
+
+    <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+    <script>
+      var client = contentful.createClient({
+        space: "mt5nyvauqlk8",
+        accessToken:
+          "db6e8fe238a42d8a3219dca211d985323d1ebd98e8856e896fafc040c76a61bc"
+      });
+      var renderTemplates = (templateId, target) => {
+        client.getEntries().then(entries => {
+          var templateTitles = $(templateId).html();
+          console.log(entries);
+          
+          var payload = Handlebars.compile(templateTitles)(entries);
+          $(target).append(payload);
+        });
+      };
+      renderTemplates("#templateTitles", "#demo");
+    </script>
+  </body>
+</html>

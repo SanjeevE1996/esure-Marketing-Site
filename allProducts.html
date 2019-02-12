@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/font-awesome.css " />
+    <link rel="stylesheet" href="css/customs.css" />
+
+    <script src="js/bootstrap.js "></script>
+    <script src="js/handlebars-v4.0.12.js "></script>
+    <script src="js/jquery-3.3.1.min.js "></script>
+    <script src="js/popper.js"></script>
+   
+    <!-- <script src="js/productScript.js"></script> -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/contentful@5.0.1/dist/contentful.browser.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+    <title>All Products</title>
+  </head>
+  <body>
+    <div class="container col-sm-12 col-md-12">
+      <div class="row">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light col-12" stly>
+          <a class="siteTitle" class="navbar-brand" href="#">esure</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="home.html"
+                  >Home <span class="sr-only"></span
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="carInsurance.html">Car Insurance</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="homeInsurance.html">Home Insurance</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="allProducts.html"
+                  >All Products</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    
+    <div class="container col-12">
+      <br />
+      <div class="container">
+        <div class="col-md-12">
+          <div class="row"><h2>List of Esure products</h2></div>
+          <br />
+          <hr />
+          <!-- 1 -->
+          <div class="col-md-12"  id="prodList-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="card">
+        <div class="card-footer"><p>esure Limited</p></div>
+      </div>
+    </footer>
+
+
+
+
+
+    <!-- 2 -->
+    <script id="prodList-template" type="text/template">
+        {{#items}}
+        <ul>
+          <li class="productTitle"> 
+              {{fields.sectionTitle}}
+          </li>
+          <p class="productContent" >{{fields.sectionContent}}</p>
+        </ul>
+          <br>
+        {{/items}}
+      
+    </script>
+
+
+    
+<!-- 3 -->
+    <script>
+      var client = contentful.createClient({
+        space: "mt5nyvauqlk8",
+        accessToken:
+          "db6e8fe238a42d8a3219dca211d985323d1ebd98e8856e896fafc040c76a61bc"
+      });
+      var renderTemplates = (templateId, target) => {
+        client.getEntries({content_type: 'esureSite'}).then(data => {
+          var templateTitles = $(templateId).html();          
+          // console.log(client.getEntries({content_type: 'esureSite'}));
+          
+          var payload = Handlebars.compile(templateTitles)(data);
+          $(target).append(payload);
+        });
+      };
+      renderTemplates("#prodList-template", "#prodList-container");
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+    <!-- <script id="prodList-template" type="text/template">
+      <ul>
+        {{#items}}
+          <li class="productTitle" >{{fields.sectionTitle}}</li>
+          <p class="productContent" >{{fields.sectionContent}}</p>
+        {{/items}}
+      </ul>
+    </script> -->
+
+
+<!-- used with jqurey when data was stored internally - see old cold foler productScript.js -->
+<!-- <script id="prodList-template" type="text/x-handlebars-template">
+              {{#each product}}
+            <li><h4>{{prodName}}</h4></li>
+            <p>{{prodSummary}}</p>
+      {{/each}}
+    </script> -->

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/font-awesome.css " />
+    <link rel="stylesheet" href="css/customs.css" />
+
+    <script src="js/bootstrap.js "></script>
+    <script src="js/handlebars-v4.0.12.js "></script>
+    <script src="js/jquery-3.3.1.min.js "></script>
+    <script src="js/popper.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/contentful@5.0.1/dist/contentful.browser.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+    <title>car Insurance</title>
+  </head>
+  <body>
+    <div class="container col-sm-12 col-md-12">
+      <div class="row">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light col-12" stly>
+          <a class="siteTitle" class="navbar-brand" href="#">esure</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="home.html"
+                  >Home <span class="sr-only"></span
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="carInsurance.html"
+                  >Car Insurance</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="homeInsurance.html">Home Insurance</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="allProducts.html">All Products</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- 1 -->
+    <div id="secondPage-container"></div>
+
+    <footer>
+      <div class="card">
+        <div class="card-footer"><p>esure Limited</p></div>
+      </div>
+    </footer>
+
+    <!-- 2 -->
+    <script id="secondPage-template" type="text/template">
+      {{#items}}
+      <div>
+          <div class="container">
+            <div class="col-sm-12 col-md-12">
+              <br>
+              <div class="row titlePosition">
+                <h2>{{fields.secondPageTitle}}</h2>
+              </div>
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+              <img src={{fields.secondPageImg.fields.file.url}} class="imgContainerCarPage" />
+              <div class="cardOnImage">
+                <div class="card-body">
+                  <h5 class="card-title">{{fields.secondPageCardTitle}}</h5>
+                  <p class="card-text">{{fields.secondPageCardContent}}</p>
+                  <button class="btn btn-warning">
+                    {{ fields.secondPageCardButton }}
+                  </button>
+                </div>
+              </div>
+              <div class="row secondSection">
+                <div class="col-sm-12 col-md-12">
+                  <div class="container">
+                    <h2>{{ fields.secondPageSectionTitle }}</h2>
+                    <br />
+                    <p>{{ fields.secondPageSectionContent }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/items}}
+    </script>
+
+    <!-- 3 -->
+    <script>
+      var client = contentful.createClient({
+        space: "mt5nyvauqlk8",
+        accessToken:
+          "db6e8fe238a42d8a3219dca211d985323d1ebd98e8856e896fafc040c76a61bc"
+      });
+      var renderTemplates = (templateId, target) => {
+        client.getEntries({ content_type: "secondPage" }).then(data => {
+          var templateTitles = $(templateId).html();
+          console.log(client.getEntries());
+
+          var payload = Handlebars.compile(templateTitles)(data);
+          $(target).append(payload);
+        });
+      };
+      renderTemplates("#secondPage-template", "#secondPage-container");
+    </script>
+
+    <!-- <script>
+      var client = contentful.createClient({
+        space: "mt5nyvauqlk8",
+        accessToken:
+          "db6e8fe238a42d8a3219dca211d985323d1ebd98e8856e896fafc040c76a61bc"
+      });
+      var renderTemplates = (templateId, target) => {
+        client.getEntries({ content_type: "secondPage" }).then(data => {
+          var templateTitles = $(templateId).html();
+          console.log(client.getEntries({ content_type: "secondPage" }));
+
+          var payload = Handlebars.compile(templateTitles)(data);
+          $(target).append(payload);
+        });
+      };
+      renderTemplates("#secondPage-template", "#secondPage-IMG-template");
+    </script> -->
+  </body>
+</html>

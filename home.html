@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/font-awesome.css " />
+    <link rel="stylesheet" href="css/customs.css" />
+    <script src="js/bootstrap.js "></script>
+
+    <script src="js/handlebars-v4.0.12.js "></script>
+
+    <script src="js/jquery-3.3.1.min.js "></script>
+    <script src="js/popper.js"></script>
+    <script src="js/homeScript.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/contentful@5.0.1/dist/contentful.browser.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+
+    <title>esure home</title>
+  </head>
+  <body class="body">
+    <div class="container col-sm-12 col-md-12">
+      <div class="row">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light col-12" stly>
+          <a class="siteTitle" class="navbar-brand" href="#">esure</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href=""
+                  >Home <span class="sr-only"></span
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="carInsurance.html">Car Insurance</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="homeInsurance.html">Home Insurance</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="allProducts.html">All Products</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <br /><br />
+    <div class="home-container" #homepage>
+      <div class="container col-sm-12 col-md-12">
+        <div class="container">
+          <div class="row">
+            <div
+              class=" col-xs-12 col-sm-6 col-md-6" id="leftHomeContent-Container">
+            </div>
+
+            <div class=" col-xs-12 col-sm-6 col-md-6" id="rightHomeContent-Container">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+    <!-- <footer>
+      <div class="card">
+        <div class="card-footer"><p>esure Limited</p></div>
+      </div>
+    </footer> -->
+
+
+
+
+
+
+    <script id="homeLeft-template" type="text/template">
+      {{#items}}
+        <h3>{{fields.leftSectionTitle}}</h3>
+        <img src={{fields.leftSectionImg.fields.file.url}}
+          class="imgContainer shadow-lg p-3 mb-5 bg-white rounded"/>
+        <section
+          class="col-md-12">
+        <p class="sectionContent" >{{fields.leftSectionContent}}</p>
+      </section>
+      <br><br><br><br><br><br><br><br><br><br><br>
+      {{/items}}
+    </script>
+
+    <script id="homeRight-template" type="text/template">
+      <h3>{{fields.rightSectionTitle}}</h3>
+      <img src="{{fields.rightSectionImg.fields.file.url}}"
+        class="imgContainer shadow-lg p-3 mb-5 bg-white rounded"/>
+      <section
+        class="col-md-12">
+      <p class="sectionContent" >{{fields.rightSectionContent}}</p>
+    </section>
+  </script>
+
+    <script>
+      var client = contentful.createClient({
+        space: "mt5nyvauqlk8",
+        accessToken:
+          "db6e8fe238a42d8a3219dca211d985323d1ebd98e8856e896fafc040c76a61bc"
+      });
+      var renderTemplates = (templateId, target) => {
+        client.getEntries({content_type: "homePage"}).then(data => {
+          var templateTitles = $(templateId).html();
+          console.log(client.getEntry("1vXUob9UwMISkzOo6rLNTe"));
+          console.log('content type ',client.getEntries({content_type: "homePage"}));//retrives entries of a specfic content type, adding more will display on side
+
+
+          var payload = Handlebars.compile(templateTitles)(data);
+          $(target).append(payload);
+        });
+      };
+      renderTemplates("#homeLeft-template", "#leftHomeContent-Container");
+    </script>
+
+
+
+
+<script>
+    var client = contentful.createClient({
+      space: "mt5nyvauqlk8",
+      accessToken:
+        "db6e8fe238a42d8a3219dca211d985323d1ebd98e8856e896fafc040c76a61bc"
+    });
+    var renderTemplates = (templateId, target) => {
+      client.getEntry("4aKjzg9sgRwMuIG4GFwBUw").then(data => {// gets specific entry, adding an entry of this type wont display all entries of that type
+        var templateTitles = $(templateId).html();
+
+        var payload = Handlebars.compile(templateTitles)(data);
+        $(target).append(payload);
+      });
+    };
+    renderTemplates("#homeRight-template", "#rightHomeContent-Container");
+  </script>
+
+
+
+
+
+
+    <!-- <script id="righthomeContent-template" type="text/x-handlebars-template">
+      <p>{{sectionText}}</p> -->
+    </script>
+  </body>
+</html>
